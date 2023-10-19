@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 import pandas as pd
+import numpy as np
 
 # wrangle nps/vps data for dataset 1, 2 (TODO), and 3
 
@@ -12,8 +13,7 @@ df_vps_3 = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source
 
 
 # create dictionary of column header numbers to key names 
-column_keys_dataset1 =
-    {
+column_keys_dataset1 = {
         0:'subject_id',
         1:'contrast1',
         2:'contrast2',
@@ -21,8 +21,7 @@ column_keys_dataset1 =
         4:'contrast4'
     }
 
-column_keys_dataset3 = 
-    {
+column_keys_dataset3 = {
         0:'subject_id',
         1:'foot_nopain',
         2:'foot_pain',
@@ -78,11 +77,17 @@ df_nps_3.rename(columns=column_keys_dataset3, inplace=True)
 df_vps_3.rename(columns=column_keys_dataset3, inplace=True)
 
 # prefix CISC to subject ids
-df_nps_1['subject_id']+'CISC'+df['subject_id'].astype(str)
-df_vps_1['subject_id']+'CISC'+df['subject_id'].astype(str)
+df_nps_1['subject_id']='CISC'+df_nps_1['subject_id'].astype(str)
+df_vps_1['subject_id']='CISC'+df_vps_1['subject_id'].astype(str)
 
-df_nps_3['subject_id']+'CISC'+df['subject_id'].astype(str)
-df_vps_3['subject_id']+'CISC'+df['subject_id'].astype(str)
+df_nps_3['subject_id']='CISC'+df_nps_3['subject_id'].astype(str)
+df_vps_3['subject_id']='CISC'+df_vps_3['subject_id'].astype(str)
+
+# fill empty cells with NaN
+df_nps_1.fillna(np.nan, inplace=True)
+df_vps_1.fillna(np.nan, inplace=True)
+df_nps_3.fillna(np.nan, inplace=True)
+df_vps_3.fillna(np.nan, inplace=True)
 
 # save 
 df_nps_1.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/nps_results_dataset1.csv')
