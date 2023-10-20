@@ -6,10 +6,13 @@ import numpy as np
 # wrangle nps/vps data for dataset 1, 2 (TODO), and 3
 
 df_nps_1 = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/nps_results_dataset1.csv', header=None)
-df_vps_1 = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset1.csv', header=None)
+df_vps_1_old = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset1_krishnan2016.csv', header=None)
+df_vps_1_new = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset1_zhou2020.csv', header=None)
 
 df_nps_3 = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/nps_results_dataset3.csv', header=None)
-df_vps_3 = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset3.csv', header=None)
+df_vps_3_old = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset3_krishnan2016.csv', header=None)
+df_vps_3_new = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset3_zhou2020.csv', header=None)
+
 
 
 # create dictionary of column header numbers to key names 
@@ -71,30 +74,41 @@ column_keys_dataset3 = {
 
 # name columns as per keys above
 df_nps_1.rename(columns=column_keys_dataset1, inplace=True)
-df_vps_1.rename(columns=column_keys_dataset1, inplace=True)
+df_vps_1_old.rename(columns=column_keys_dataset1, inplace=True)
+df_vps_1_new.rename(columns=column_keys_dataset1, inplace=True)
+
 
 df_nps_3.rename(columns=column_keys_dataset3, inplace=True)
-df_vps_3.rename(columns=column_keys_dataset3, inplace=True)
+df_vps_3_old.rename(columns=column_keys_dataset3, inplace=True)
+df_vps_3_new.rename(columns=column_keys_dataset3, inplace=True)
 
 # prefix CISC to subject ids
 df_nps_1['subject_id']='CISC'+df_nps_1['subject_id'].astype(str)
-df_vps_1['subject_id']='CISC'+df_vps_1['subject_id'].astype(str)
+df_vps_1_old['subject_id']='CISC'+df_vps_1_old['subject_id'].astype(str)
+df_vps_1_new['subject_id']='CISC'+df_vps_1_new['subject_id'].astype(str)
 
 df_nps_3['subject_id']='CISC'+df_nps_3['subject_id'].astype(str)
-df_vps_3['subject_id']='CISC'+df_vps_3['subject_id'].astype(str)
+df_vps_3_old['subject_id']='CISC'+df_vps_3_old['subject_id'].astype(str)
+df_vps_3_new['subject_id']='CISC'+df_vps_3_new['subject_id'].astype(str)
 
 # fill empty cells with NaN
 df_nps_1.fillna(np.nan, inplace=True)
-df_vps_1.fillna(np.nan, inplace=True)
+df_vps_1_old.fillna(np.nan, inplace=True)
+df_vps_1_new.fillna(np.nan, inplace=True)
+
 df_nps_3.fillna(np.nan, inplace=True)
-df_vps_3.fillna(np.nan, inplace=True)
+df_vps_3_old.fillna(np.nan, inplace=True)
+df_vps_3_new.fillna(np.nan, inplace=True)
 
 # save 
 df_nps_1.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/nps_results_dataset1.csv')
-df_vps_1.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset1.csv')
+df_vps_1_old.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset1_krishnan2016.csv')
+df_vps_1_new.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset1_zhou2020.csv')
+
 
 df_nps_3.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/nps_results_dataset3.csv')
-df_vps_3.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset3.csv')
+df_vps_3_old.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset3_krishnan2016.csv')
+df_vps_3_new.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset3_zhou2020.csv')
 
 
 
