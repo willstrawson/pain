@@ -41,7 +41,8 @@ disp(unique_subject_ids);
 % 4 contrasts for picture 
 % fill first column with subids
 nps_picture = zeros(numel(unique_subject_ids),5);
-vps_picture = zeros(numel(unique_subject_ids),5);
+vps_picture_krishnan2016 = zeros(numel(unique_subject_ids),5);
+vps_picture_zhou2020 = zeros(numel(unique_subject_ids),5);
 
 cd(directory_path)
 
@@ -51,7 +52,8 @@ for i = 1:numel(unique_subject_ids)
     
     % remove CISC and convert string to number, then add to first column
     nps_picture(i,1)=str2num(strrep(subjectID, 'CISC', ''));
-    vps_picture(i,1)=str2num(strrep(subjectID, 'CISC', ''));    
+    vps_picture_krishnan2016(i,1)=str2num(strrep(subjectID, 'CISC', ''));  
+    vps_picture_zhou2020(i,1)=str2num(strrep(subjectID, 'CISC', ''));  
     
     % loop over files for each participant for pictures  
     for cond = 1:4
@@ -59,10 +61,12 @@ for i = 1:numel(unique_subject_ids)
         cond = num2str(cond);  
         %try
             nps = apply_nps([subjectID, '_results_picture_mni_',suffix]);
-            vps = apply_VPS([subjectID, '_results_picture_mni_',suffix]);
+            vps_old = apply_vps_krishnan2016([subjectID, '_results_picture_mni_',suffix]);
+            vps_new = apply_vps_zhou2020([subjectID, '_results_picture_mni_',suffix]);
             co = str2num(cond) + 1; 
             nps_picture(i,co) = nps{1,1};
-            vps_picture(i,co) = vps{1,1};
+            vps_picture_krishnan2016(i,co) = vps_old{1,1};
+            vps_picture_zhou2020(i,co) = vps_new{1,1};
         %catch
         %    nps=NaN;
         %    vps=NaN;
@@ -76,9 +80,10 @@ for i = 1:numel(unique_subject_ids)
 end   
     
 
-save('results.mat' ,'nps_picture', 'vps_picture');
+save('results.mat' ,'nps_picture', 'vps_picture_krishnan2016', 'vps_picture_zhou2020');
 % save results in github dir 
 cd('/its/home/ws231/Downloads/repos/pain/data/source')
 writematrix(nps_picture,'nps_results_dataset1.csv')
-writematrix(vps_picture,'vps_results_dataset1.csv')
+writematrix(vps_picture_krishnan2016,'vps_results_dataset1_krishnan2016.csv')
+writematrix(vps_picture_zhou2020,'vps_results_dataset1_zhou2020.csv')
 
