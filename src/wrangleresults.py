@@ -9,6 +9,10 @@ df_nps_1 = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source
 df_vps_1_old = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset1_krishnan2016.csv', header=None)
 df_vps_1_new = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset1_zhou2020.csv', header=None)
 
+df_nps_2 = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/nps_results_dataset2.csv', header=None)
+df_vps_2_old = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset2_krishnan2016.csv', header=None)
+df_vps_2_new = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset2_zhou2020.csv', header=None)
+
 df_nps_3 = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/nps_results_dataset3.csv', header=None)
 df_vps_3_old = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset3_krishnan2016.csv', header=None)
 df_vps_3_new = pd.read_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/source/vps_results_dataset3_zhou2020.csv', header=None)
@@ -22,6 +26,24 @@ column_keys_dataset1 = {
         2:'contrast2',
         3:'contrast3',
         4:'contrast4'
+    }
+
+column_keys_dataset2 = {
+        0:'subject_id',
+        1:'beta1',
+        2:'beta2',
+        3:'beta3',
+        4:'beta4',
+        5:'beta5',
+        6:'beta6',
+        7:'beta7',
+        8:'beta8',
+        9:'beta9',
+        10:'beta10',
+        11:'beta11',
+        12:'beta12',
+        13:'beta13',
+        14:'beta14'
     }
 
 column_keys_dataset3 = {
@@ -77,6 +99,9 @@ df_nps_1.rename(columns=column_keys_dataset1, inplace=True)
 df_vps_1_old.rename(columns=column_keys_dataset1, inplace=True)
 df_vps_1_new.rename(columns=column_keys_dataset1, inplace=True)
 
+df_nps_2.rename(columns=column_keys_dataset2, inplace=True)
+df_vps_2_old.rename(columns=column_keys_dataset2, inplace=True)
+df_vps_2_new.rename(columns=column_keys_dataset2, inplace=True)
 
 df_nps_3.rename(columns=column_keys_dataset3, inplace=True)
 df_vps_3_old.rename(columns=column_keys_dataset3, inplace=True)
@@ -87,6 +112,10 @@ df_nps_1['subject_id']='CISC'+df_nps_1['subject_id'].astype(str)
 df_vps_1_old['subject_id']='CISC'+df_vps_1_old['subject_id'].astype(str)
 df_vps_1_new['subject_id']='CISC'+df_vps_1_new['subject_id'].astype(str)
 
+df_nps_2['subject_id']='CISC'+df_nps_2['subject_id'].astype(str)
+df_vps_2_old['subject_id']='CISC'+df_vps_2_old['subject_id'].astype(str)
+df_vps_2_new['subject_id']='CISC'+df_vps_2_new['subject_id'].astype(str)
+
 df_nps_3['subject_id']='CISC'+df_nps_3['subject_id'].astype(str)
 df_vps_3_old['subject_id']='CISC'+df_vps_3_old['subject_id'].astype(str)
 df_vps_3_new['subject_id']='CISC'+df_vps_3_new['subject_id'].astype(str)
@@ -95,6 +124,10 @@ df_vps_3_new['subject_id']='CISC'+df_vps_3_new['subject_id'].astype(str)
 df_nps_1.fillna(np.nan, inplace=True)
 df_vps_1_old.fillna(np.nan, inplace=True)
 df_vps_1_new.fillna(np.nan, inplace=True)
+
+df_nps_2.fillna(np.nan, inplace=True)
+df_vps_2_old.fillna(np.nan, inplace=True)
+df_vps_2_new.fillna(np.nan, inplace=True)
 
 df_nps_3.fillna(np.nan, inplace=True)
 df_vps_3_old.fillna(np.nan, inplace=True)
@@ -105,6 +138,9 @@ df_nps_1.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/n
 df_vps_1_old.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset1_krishnan2016.csv')
 df_vps_1_new.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset1_zhou2020.csv')
 
+df_nps_2.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/nps_results_dataset2.csv')
+df_vps_2_old.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset2_krishnan2016.csv')
+df_vps_2_new.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset2_zhou2020.csv')
 
 df_nps_3.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/nps_results_dataset3.csv')
 df_vps_3_old.to_csv('/Users/willstrawson/Documents/PhD/repos/pain/data/derivatives/vps_results_dataset3_krishnan2016.csv')
