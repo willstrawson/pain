@@ -3,16 +3,16 @@ addpath(genpath('/research/cisc2/projects/ward_painsig/scripts_batches/CanlabCor
 %% get array of unique subject IDs
 
 % Define the directory path where your files are located
-directory_path = ''; %TODO
+directory_path = '/research/cisc2/projects/ward_painsig/dataset1_neurovault_ward2017/';
 
 % List all files in the directory
-files = dir(fullfile(directory_path, '*.nii'));
+files = dir(fullfile(directory_path, '*.nii.gz'));
 
 % Initialize an empty cell array to store the unique subject IDs
 unique_subject_ids = cell(0);
 
 % Define a regular expression pattern to match subject IDs
-pattern = 'CISC\d+';
+pattern = '(\d{2})(?=p|np)';
 
 % Loop through the files and extract subject IDs
 for i = 1:length(files)
@@ -32,38 +32,42 @@ end
 unique_subject_ids = unique(unique_subject_ids);
 
 % Display the list of unique subject IDs
-disp(unique_subject_ids);
+disp(unique_subject_ids)
 
 %% get array of unique subject IDs
 
 %one dataframe for nps, and one for vps
-% one row per participant (n=?), one column per condition 
+% one row per participant (n=41), one column per condition 
 % 4 contrasts for picture 
 % fill first column with subids
-nps_picture = zeros(numel(unique_subject_ids),5);
-vps_picture_krishnan2016 = zeros(numel(unique_subject_ids),5);
-vps_picture_zhou2020 = zeros(numel(unique_subject_ids),5);
+nps_picture = zeros(numel(unique_subject_ids),3);
+vps_picture_krishnan2016 = zeros(numel(unique_subject_ids),3);
+vps_picture_zhou2020 = zeros(numel(unique_subject_ids),3);
 
 cd(directory_path)
+strings = {'p','np'}
 
 % loop over participant name 
 for i = 1:numel(unique_subject_ids)
     subjectID = unique_subject_ids{i};
     
     % remove CISC and convert string to number, then add to first column
-    nps_picture(i,1)=str2num(strrep(subjectID, 'CISC', ''));
-    vps_picture_krishnan2016(i,1)=str2num(strrep(subjectID, 'CISC', ''));  
-    vps_picture_zhou2020(i,1)=str2num(strrep(subjectID, 'CISC', ''));  
+    nps_picture(i,1)=str2num(subjectID);
+    vps_picture_krishnan2016(i,1)=str2num(subjectID);  
+    vps_picture_zhou2020(i,1)=str2num(subjectID); 
+    
+    iteration_count = 0 
     
     % loop over files for each participant for pictures  
-    for cond = 1:4
-        suffix = sprintf('%05d.nii',cond);
-        cond = num2str(cond);  
+    for s = 1:length(strings)
+        suffix = [strings{i}, '.nii.gz']
+        iteration_count = iteration_count + 1
+        
         %try
-            nps = apply_nps([subjectID, '_results_picture_mni_',suffix]);
-            vps_old = apply_vps_krishnan2016([subjectID, '_results_picture_mni_',suffix]);
-            vps_new = apply_vps_zhou2020([subjectID, '_results_picture_mni_',suffix]);
-            co = str2num(cond) + 1; 
+            nps = apply_nps([subjectID,suffix]);
+            vps_old = apply_vps_krishnan2016([subjectID, suffix]);
+            vps_new = apply_vps_zhou2020([subjectID,suffix]);
+            co = iteration_count + 1; 
             nps_picture(i,co) = nps{1,1};
             vps_picture_krishnan2016(i,co) = vps_old{1,1};
             vps_picture_zhou2020(i,co) = vps_new{1,1};
