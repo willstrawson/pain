@@ -120,7 +120,7 @@ vps_results_zhou2020 = [vps_picture_zhou2020, vps_video_zhou2020(:,2:end)];
 
 save('results.mat' ,'nps_results', 'vps_results_krishnan2016', 'vps_results_zhou2020');
 cd('/its/home/ws231/Downloads/repos/pain/data/source')
-writematrix(nps_results,'nps_results_dataset3.csv')
-writematrix(vps_results_krishnan2016,'vps_results_dataset3_krishnan2016.csv')
-writematrix(vps_results_zhou2020,'vps_results_dataset3_zhou2020.csv')
+writematrix(nps_results,'nps_results_dataset3a.csv')
+writematrix(vps_results_krishnan2016,'vps_results_dataset3a_krishnan2016.csv')
+writematrix(vps_results_zhou2020,'vps_results_dataset3a_zhou2020.csv')
 

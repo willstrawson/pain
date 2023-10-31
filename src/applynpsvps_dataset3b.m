@@ -3,7 +3,7 @@ addpath(genpath('/research/cisc2/projects/ward_painsig/scripts_batches/CanlabCor
 %% get array of unique subject IDs
 
 % Define the directory path where your files are located
-directory_path = ''; %TODO
+directory_path = '/research/cisc1/projects/ward_painsig/uploading_neurovault/processData/';
 
 % List all files in the directory
 files = dir(fullfile(directory_path, '*.nii'));
@@ -37,7 +37,7 @@ disp(unique_subject_ids);
 %% get array of unique subject IDs
 
 %one dataframe for nps, and one for vps
-% one row per participant (n=?), one column per condition 
+% one row per participant (n=64), one column per condition 
 % 4 contrasts for picture 
 % fill first column with subids
 nps_picture = zeros(numel(unique_subject_ids),5);
@@ -83,7 +83,7 @@ end
 save('results.mat' ,'nps_picture', 'vps_picture_krishnan2016', 'vps_picture_zhou2020');
 % save results in github dir 
 cd('/its/home/ws231/Downloads/repos/pain/data/source')
-writematrix(nps_picture,'nps_results_dataset1.csv')
-writematrix(vps_picture_krishnan2016,'vps_results_dataset1_krishnan2016.csv')
-writematrix(vps_picture_zhou2020,'vps_results_dataset1_zhou2020.csv')
+writematrix(nps_picture,'nps_results_dataset3b.csv')
+writematrix(vps_picture_krishnan2016,'vps_results_dataset3b_krishnan2016.csv')
+writematrix(vps_picture_zhou2020,'vps_results_dataset3b_zhou2020.csv')
 
