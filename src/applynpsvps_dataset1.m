@@ -59,8 +59,8 @@ for i = 1:numel(unique_subject_ids)
     iteration_count = 0 
     
     % loop over files for each participant for pictures  
-    for s = 1:length(strings)
-        suffix = [strings{i}, '.nii.gz']
+    for cond = 1:length(strings)
+        suffix = [strings{cond}, '.nii.gz']
         iteration_count = iteration_count + 1
         
         %try
