@@ -1,5 +1,6 @@
 % DATASET #1
 addpath(genpath('/research/cisc2/projects/ward_painsig/scripts_batches/CanlabCore-master/'))
+addpath(genpath('/research/cisc1/projects/ward_painsig'))
 %% get array of unique subject IDs
 
 % Define the directory path where your files are located
@@ -12,7 +13,7 @@ files = dir(fullfile(directory_path, '*.nii'));
 unique_subject_ids = cell(0);
 
 % Define a regular expression pattern to match subject IDs
-pattern = 're[\w\d]+';
+pattern = 're[^_]+';
 
 % Loop through the files and extract subject IDs
 for i = 1:length(files)
@@ -51,24 +52,24 @@ for i = 1:numel(unique_subject_ids)
     subjectID = unique_subject_ids{i};
     
     % remove CISC and convert string to number, then add to first column
-    %nps_picture(i,1)=str2num(strrep(subjectID, 're', ''));
-    %vps_picture_krishnan2016(i,1)=str2num(strrep(subjectID, 're', ''));  
-    %vps_picture_zhou2020(i,1)=str2num(strrep(subjectID, 're', ''));  
+    nps_picture(i,1)=str2num(strrep(subjectID, 're', ''));
+    vps_picture_krishnan2016(i,1)=str2num(strrep(subjectID, 're', ''));  
+    vps_picture_zhou2020(i,1)=str2num(strrep(subjectID, 're', ''));  
 
     %try adding subject ID staight away 
 
-    nps_picture(i,1)=subjectID
-    vps_picture_krishnan2016(i,1)=subjectID
-    vps_picture_zhou2020(i,1)=subjectID
+    %nps_picture(i,1)=subjectID
+    %vps_picture_krishnan2016(i,1)=subjectID
+    %vps_picture_zhou2020(i,1)=subjectID
     
     % loop over files for each participant for pictures  
     for cond = 1:4
         suffix = sprintf('%04d.nii',cond);
         cond = num2str(cond);  
         %try
-            nps = apply_nps([subjectID,suffix]);
-            vps_old = apply_vps_krishnan2016([subjectID, suffix]);
-            vps_new = apply_vps_zhou2020([subjectID, suffix]);
+            nps = apply_nps([subjectID,'_',suffix]);
+            vps_old = apply_vps_krishnan2016([subjectID, '_',suffix]);
+            vps_new = apply_vps_zhou2020([subjectID,'_', suffix]);
             co = str2num(cond) + 1; 
             nps_picture(i,co) = nps{1,1};
             vps_picture_krishnan2016(i,co) = vps_old{1,1};
@@ -86,10 +87,10 @@ for i = 1:numel(unique_subject_ids)
 end   
     
 
-save('results.mat' ,'nps_picture', 'vps_picture_krishnan2016', 'vps_picture_zhou2020');
+save('results.mat' ,'nps_picture', 'vps_picture_krishnan2016', 'vps_picture_zhou2020')
 % save results in github dir 
 cd('/its/home/ws231/Downloads/repos/pain/data/source')
-writematrix(nps_picture,'nps_results_dataset3b.csv')
-writematrix(vps_picture_krishnan2016,'vps_results_dataset3b_krishnan2016.csv')
-writematrix(vps_picture_zhou2020,'vps_results_dataset3b_zhou2020.csv')
+writematrix(nps_picture,'nps_results_dataset2.csv')
+writematrix(vps_picture_krishnan2016,'vps_results_dataset2_krishnan2016.csv')
+writematrix(vps_picture_zhou2020,'vps_results_dataset2_zhou2020.csv')
 
